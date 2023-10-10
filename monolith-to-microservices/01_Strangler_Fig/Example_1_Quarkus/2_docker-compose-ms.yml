@@ -1,14 +1,14 @@
 version: '3.9'
-services: 
-  2-strangler-fig-inventory-ms:
-    image: 2_strangler_fig_inventory_ms
-    container_name: 'example_1_step_2_strangler_fig_inventory_ms'
+services:
+  2-strangler-fig-inventory-ms_quarkus:
+    image: 2-strangler-fig-inventory-ms_quarkus
+    container_name: '2-strangler-fig-inventory-ms_quarkus'
     restart: on-failure
-    build: 
+    build:
       context: ./2_strangler_fig_inventory_ms
-      dockerfile: ./Dockerfile
+      dockerfile: ./src/main/docker/Dockerfile.jvm
     ports: 
-      - 8081:8081
+      - "8081:8081"
     networks:
       - app-network
 

@@ -1,14 +1,14 @@
 version: '3.9'
 services: 
-  1-strangler-fig-monolith:
-    image: 1_strangler_fig_monolith
-    container_name: 'example_1_step_1_strangler_fig_monolith'
+  1-strangler-fig-monolith_quarkus:
+    image: 1-strangler-fig-monolith_quarkus
+    container_name: '1-strangler-fig-monolith_quarkus'
     restart: on-failure
     build: 
       context: ./1_strangler_fig_monolith
-      dockerfile: ./Dockerfile
+      dockerfile: ./src/main/docker/Dockerfile.jvm
     ports: 
-      - 8080:8080
+      - "8080:8080"
     networks:
       - app-network
 

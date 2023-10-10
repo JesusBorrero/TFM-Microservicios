@@ -8,7 +8,7 @@ services:
       context: ./2_strangler_fig_inventory_ms
       dockerfile: ./Dockerfile
     ports: 
-      - 8081:8081
+      - "8081:8081"
     networks:
       - app-network
 
