@@ -1,7 +1,7 @@
 package es.codeurjc.mtm.strangler_fig_inventory_ms.service;
 
 import es.codeurjc.mtm.strangler_fig_inventory_ms.model.Inventory;
-import javax.annotation.PostConstruct;
+import jakarta.annotation.PostConstruct;
 import org.springframework.stereotype.Component;
 
 @Component
