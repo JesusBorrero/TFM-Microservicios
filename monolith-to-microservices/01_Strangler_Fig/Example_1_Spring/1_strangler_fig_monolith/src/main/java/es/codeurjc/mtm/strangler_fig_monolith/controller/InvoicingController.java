@@ -67,7 +67,7 @@ public class InvoicingController {
   }
 
   @PutMapping({"/{id}"})
-  public ResponseEntity<Invoicing> createInvoicing(@RequestBody Invoicing invoicing,
+  public ResponseEntity<Invoicing> replaceInvoicing(@RequestBody Invoicing invoicing,
       @PathVariable long id) {
     Invoicing invoicingUpdated = this.invoicingService.updateInvoicing(id, invoicing);
 

@@ -42,7 +42,7 @@ public class InventoryController {
     Inventory inventory = this.inventoryService.getInventory(id);
 
     if (inventory != null) {
-      return ResponseEntity.ok(this.inventoryService.getInventory(id));
+      return ResponseEntity.ok(inventory);
     } else {
       return ResponseEntity.notFound().build();
     }
