@@ -1,0 +1,36 @@
+version: '3.9'
+services: 
+        
+  2-strangler-fig-monolith-quarkus:
+    image: 2-strangler-fig-monolith-quarkus
+    container_name: '2-strangler-fig-monolith-quarkus'
+    restart: on-failure
+    build: 
+      context: ./2_strangler_fig_monolith
+      dockerfile: ./src/main/docker/Dockerfile.jvm
+    ports: 
+      - "8082:8080"
+    networks:
+      - app-network
+  
+  2-strangler-fig-payroll-ms-quarkus:
+    image: 2-strangler-fig-payroll-ms-quarkus
+    container_name: '2-strangler-fig-payroll-ms-quarkus'
+    restart: on-failure
+    build: 
+      context: ./2_strangler_fig_payroll_ms
+      dockerfile: ./src/main/docker/Dockerfile.jvm
+    ports: 
+      - "8081:8081"
+    depends_on: 
+      - 2-strangler-fig-monolith-quarkus
+    environment:
+      - quarkus.rest-client.user-notification-api.url=http://127.0.0.1:8080
+      - quarkus.rest-client.user-notification-api.scope=jakarta.inject.Singleton
+      - quarkus.rest-client.user-notification-api.verify-host=false
+    networks:
+      - app-network
+  
+networks:
+  app-network:
+    driver: bridge
