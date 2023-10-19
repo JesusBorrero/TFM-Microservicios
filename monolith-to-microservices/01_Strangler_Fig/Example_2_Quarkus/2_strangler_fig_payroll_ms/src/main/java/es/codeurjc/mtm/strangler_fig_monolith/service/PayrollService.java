@@ -3,14 +3,17 @@ package es.codeurjc.mtm.strangler_fig_monolith.service;
 import es.codeurjc.mtm.strangler_fig_monolith.model.Payroll;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
+import lombok.extern.slf4j.Slf4j;
 import org.eclipse.microprofile.rest.client.inject.RestClient;
 
 import java.util.Collection;
+import java.util.concurrent.CompletionStage;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 import java.util.concurrent.atomic.AtomicLong;
 
 @ApplicationScoped
+@Slf4j
 public class PayrollService {
 
   private final ConcurrentMap<Long, Payroll> payrolls = new ConcurrentHashMap<>();

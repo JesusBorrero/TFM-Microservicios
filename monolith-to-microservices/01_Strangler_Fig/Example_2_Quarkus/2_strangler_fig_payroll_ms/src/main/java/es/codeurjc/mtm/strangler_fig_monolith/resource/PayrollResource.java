@@ -55,7 +55,7 @@ public class PayrollResource {
 
     @PUT
     @Path("{id}")
-    public Response createPayroll(Payroll Payroll, @PathParam("id") long id) {
+    public Response updatePayroll(Payroll Payroll, @PathParam("id") long id) {
         Payroll payrollUpdated = this.payrollService.updatePayroll(id, Payroll);
 
         if (payrollUpdated != null) {

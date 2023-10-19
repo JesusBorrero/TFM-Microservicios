@@ -13,7 +13,7 @@ public class UserNotificationResource {
   UserNotificationService userNotificationService;
 
   @POST
-  public Response createInvoicing(String msg) {
+  public Response notify(String msg) {
     this.userNotificationService.notify(msg);
 
     return Response.ok().entity(msg).build();
