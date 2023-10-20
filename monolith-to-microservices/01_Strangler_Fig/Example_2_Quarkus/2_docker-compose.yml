@@ -9,7 +9,7 @@ services:
       context: ./2_strangler_fig_monolith
       dockerfile: ./src/main/docker/Dockerfile.jvm
     ports: 
-      - "8082:8082"
+      - "8082:8080"
     networks:
       - app-network
   
@@ -25,7 +25,7 @@ services:
     depends_on: 
       - 2-strangler-fig-monolith-quarkus
     environment:
-      - quarkus.rest-client."es.codeurjc.mtm.strangler_fig_monolith.service.UserNotificationService".url=http://localhost:8082
+      - quarkus.rest-client."es.codeurjc.mtm.strangler_fig_monolith.service.UserNotificationService".url=http://2-strangler-fig-monolith-quarkus:8080
       - quarkus.rest-client."es.codeurjc.mtm.strangler_fig_monolith.service.UserNotificationService".scope=javax.inject.Singleton
       - quarkus.http.port=8081
     networks:
