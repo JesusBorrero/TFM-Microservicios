@@ -12,7 +12,7 @@ public class PayrollService {
 
   private final ConcurrentMap<Long, Payroll> payrolls = new ConcurrentHashMap<>();
   private final AtomicLong nextId = new AtomicLong();
-  private UserNotificationService userNotificationService;
+  private final UserNotificationService userNotificationService;
 
   public PayrollService(
       UserNotificationService userNotificationService) {

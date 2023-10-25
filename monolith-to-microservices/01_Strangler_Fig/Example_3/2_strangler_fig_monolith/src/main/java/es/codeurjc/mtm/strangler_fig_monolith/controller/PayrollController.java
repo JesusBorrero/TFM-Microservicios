@@ -21,7 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/payroll")
 public class PayrollController {
 
-  private PayrollService payrollService;
+  private final PayrollService payrollService;
 
   public PayrollController(
       PayrollService payrollService) {

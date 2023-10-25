@@ -1,7 +1,7 @@
 ######################################
 # Base image for compiling container #
 ######################################
-FROM maven:3.8.2-openjdk-16 as builder
+FROM maven:3.8.2-openjdk-17 as builder
 
 # Define workdir where commands will be executed
 WORKDIR /project
@@ -18,7 +18,7 @@ RUN mvn package -DskipTests
 ########################################
 # Base image for application container #
 ########################################
-FROM openjdk:16.0.2-jdk-slim
+FROM openjdk:17-ea-4-jdk-slim
 
 # Define work dir where JAR will be located
 WORKDIR /usr/src/app/

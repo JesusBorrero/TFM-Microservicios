@@ -12,7 +12,7 @@ public class InvoicingService {
 
   private final ConcurrentMap<Long, Invoicing> invoicings = new ConcurrentHashMap<>();
   private final AtomicLong nextId = new AtomicLong();
-  private UserNotificationService userNotificationService;
+  private final UserNotificationService userNotificationService;
 
   public InvoicingService(
       UserNotificationService userNotificationService) {

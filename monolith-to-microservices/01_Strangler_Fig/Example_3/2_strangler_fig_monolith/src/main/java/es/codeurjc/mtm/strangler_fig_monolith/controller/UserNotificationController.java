@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/notification")
 public class UserNotificationController {
 
-  private UserNotificationService userNotificationService;
+  private final UserNotificationService userNotificationService;
 
   public UserNotificationController(
       UserNotificationService userNotificationService) {

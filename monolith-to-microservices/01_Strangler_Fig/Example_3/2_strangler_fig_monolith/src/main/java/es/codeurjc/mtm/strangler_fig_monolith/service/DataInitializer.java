@@ -2,7 +2,7 @@ package es.codeurjc.mtm.strangler_fig_monolith.service;
 
 import es.codeurjc.mtm.strangler_fig_monolith.model.Invoicing;
 import es.codeurjc.mtm.strangler_fig_monolith.model.Payroll;
-import javax.annotation.PostConstruct;
+import jakarta.annotation.PostConstruct;
 import org.springframework.stereotype.Component;
 
 @Component
