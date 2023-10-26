@@ -1,13 +1,13 @@
 version: '3.9'
 
 services:
-  strangler-fig-producer:
-    image: strangler_fig_producer
-    container_name: 'example_3_step_strangler_fig_producer'
+  strangler-fig-producer_quarkus:
+    image: strangler-fig-producer_quarkus
+    container_name: 'strangler-fig-producer_quarkus'
     restart: on-failure
     build: 
-      context: ./strangler_fig_producer
-      dockerfile: ./Dockerfile
+      context: ./strangler_fig_producer_quarkus
+      dockerfile: ./src/main/docker/Dockerfile.jvm
     ports: 
       - 9090:9090
     networks:

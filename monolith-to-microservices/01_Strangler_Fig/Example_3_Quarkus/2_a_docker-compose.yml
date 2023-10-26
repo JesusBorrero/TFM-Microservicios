@@ -2,13 +2,13 @@ version: '3.9'
 
 services:
    
-  2-strangler-fig-monolith:
-    image: 2_strangler_fig_monolith
-    container_name: 'example_3_step_2_strangler_fig_monolith'
+  2-strangler-fig-monolith-quarkus:
+    image: 2-strangler-fig-monolith-quarkus
+    container_name: '2-strangler-fig-monolith-quarkus'
     restart: on-failure
     build: 
-      context: ./2_strangler_fig_monolith
-      dockerfile: ./Dockerfile
+      context: ./2_strangler_fig_monolith_quarkus
+      dockerfile: ./src/main/docker/Dockerfile.jvm
     ports: 
       - 8082:8080
     networks:
@@ -19,19 +19,19 @@ services:
       - KAFKA_PORT=9092
       - CONSUMER_GROUP_ID=payment-service-group
   
-  2-strangler-fig-payroll-ms:
-    image: 2_strangler_fig_payroll_ms
-    container_name: 'example_3_step_2_strangler_fig_payroll_ms'
+  2-strangler-fig-payroll-ms-quarkus:
+    image: 2-strangler-fig-payroll-ms-quarkus
+    container_name: '2-strangler-fig-payroll-ms-quarkus'
     restart: on-failure
     build: 
-      context: ./2_a_strangler_fig_payroll_ms
-      dockerfile: ./Dockerfile
+      context: ./2_a_strangler_fig_payroll_ms_quarkus
+      dockerfile: ./src/main/docker/Dockerfile.jvm
     ports: 
       - 8081:8081
     depends_on: 
-      - 2-strangler-fig-monolith
+      - 2-strangler-fig-monolith-quarkus
     environment:
-      - MONOLITH_HOST=2-strangler-fig-monolith
+      - MONOLITH_HOST=2-strangler-fig-monolith-quarkus
       - MONOLITH_PORT=8080
       - PAYROLL_TOPIC=payroll-v2-topic
       - KAFKA_HOST=kafka
