@@ -1,0 +1,61 @@
+package es.codeurjc.mtm.strangler_fig_monolith.service;
+
+import es.codeurjc.mtm.strangler_fig_monolith.model.Invoicing;
+import es.codeurjc.mtm.strangler_fig_monolith.model.Payroll;
+import io.quarkus.runtime.StartupEvent;
+import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.enterprise.event.Observes;
+import jakarta.inject.Inject;
+import jakarta.transaction.Transactional;
+
+@ApplicationScoped
+public class DataInitializer {
+
+  @Inject
+  InvoicingService invoicingService;
+  @Inject
+  PayrollService payrollService;
+
+  @Transactional
+  void onStart(@Observes StartupEvent ev) {
+    // Invoicing
+    Invoicing invoicing = Invoicing.builder()
+        .billTo("user 1")
+        .total(4549.95)
+        .build();
+
+    Invoicing invoicing2 = Invoicing.builder()
+        .billTo("user 2")
+        .total(549.95)
+        .build();
+
+    Invoicing invoicing3 = Invoicing.builder()
+        .billTo("user 3")
+        .total(1049.95)
+        .build();
+
+    invoicingService.saveInvoicing(invoicing);
+    invoicingService.saveInvoicing(invoicing2);
+    invoicingService.saveInvoicing(invoicing3);
+
+    // Payroll
+    Payroll payroll = Payroll.builder()
+        .shipTo("user 1")
+        .total(10549.95)
+        .build();
+
+    Payroll payroll2 = Payroll.builder()
+        .shipTo("user 2")
+        .total(6549.95)
+        .build();
+
+    Payroll payroll3 = Payroll.builder()
+        .shipTo("user 3")
+        .total(1449.95)
+        .build();
+
+    payrollService.savePayroll(payroll);
+    payrollService.savePayroll(payroll2);
+    payrollService.savePayroll(payroll3);
+  }
+}
