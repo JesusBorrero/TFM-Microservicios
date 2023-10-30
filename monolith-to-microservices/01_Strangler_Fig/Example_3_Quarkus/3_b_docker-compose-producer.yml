@@ -1,0 +1,25 @@
+version: '3.9'
+
+services:
+
+  strangler-fig-producer_quarkus:
+    image: strangler_fig_producer_quarkus
+    container_name: 'strangler_fig_producer_quarkus'
+    restart: on-failure
+    build: 
+      context: ./strangler_fig_producer_quarkus
+      dockerfile: ./src/main/docker/Dockerfile.jvm
+    ports: 
+      - 9090:9090
+    environment:
+      - PAYROLL_TOPIC=payroll-all-msg-topic
+      - INVOICING_TOPIC=invoicing-all-msg-topic
+      - KAFKA_HOST=kafka
+      - KAFKA_PORT=9092
+    networks:
+      - app-network
+
+
+networks:
+  app-network:
+    driver: bridge

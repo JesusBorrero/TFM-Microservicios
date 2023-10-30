@@ -1,0 +1,46 @@
+version: '3.9'
+
+services:
+   
+  2-strangler-fig-cbr-ms-quarkus:
+    image: 2-strangler-fig-cbr-ms-quarkus
+    container_name: '2-strangler-fig-cbr-ms-quarkus'
+    restart: on-failure
+    build: 
+      context: ./2_strangler_fig_cbr_quarkus
+      dockerfile: ./src/main/docker/Dockerfile.jvm
+    ports: 
+      - 8083:8082
+    environment:
+      - PAYROLL_CONSUMER_TOPIC=payroll-all-msg-topic
+      - INVOICING_CONSUMER_TOPIC=invoicing-all-msg-topic
+      - PAYROLL_PRODUCER_TOPIC=payroll-v2-topic
+      - INVOICING_PRODUCER_TOPIC=invoicing-v1-topic
+      - KAFKA_HOST=kafka
+      - KAFKA_PORT=9092
+      - CONSUMER_GROUP_ID=payment-service-group
+    networks:
+      - app-network
+
+
+  2-strangler-fig-payroll-ms-quarkus:
+    image: 2-strangler-fig-payroll-ms-quarkus
+    container_name: '2-strangler-fig-payroll-ms-quarkus'
+    restart: on-failure
+    build: 
+      context: ./2_b_strangler_fig_payroll_ms_quarkus
+      dockerfile: ./src/main/docker/Dockerfile.jvm
+    ports: 
+      - 8081:8081
+    environment:
+      - PAYROLL_TOPIC=payroll-v2-topic
+      - KAFKA_HOST=kafka
+      - KAFKA_PORT=9092
+      - CONSUMER_GROUP_ID=payment-service-group
+    networks:
+      - app-network
+
+
+networks:
+  app-network:
+    driver: bridge
