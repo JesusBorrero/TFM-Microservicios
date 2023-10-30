@@ -36,7 +36,6 @@ public class KafkaProducer {
   public void sendMessage(String message, String topic){
     CompletableFuture<SendResult<String, String>> future = kafkaTemplate.send(topic, message);
     future.whenComplete(new BiConsumer<>() {
-
       @Override
       public void accept(SendResult<String, String> stringStringSendResult, Throwable throwable) {
         if (throwable != null) {

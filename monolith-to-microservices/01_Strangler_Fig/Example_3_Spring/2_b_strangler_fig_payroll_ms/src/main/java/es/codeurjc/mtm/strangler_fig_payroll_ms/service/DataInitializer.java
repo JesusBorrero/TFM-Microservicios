@@ -1,7 +1,7 @@
 package es.codeurjc.mtm.strangler_fig_payroll_ms.service;
 
 import es.codeurjc.mtm.strangler_fig_payroll_ms.model.Payroll;
-import javax.annotation.PostConstruct;
+import jakarta.annotation.PostConstruct;
 import org.springframework.stereotype.Component;
 
 @Component

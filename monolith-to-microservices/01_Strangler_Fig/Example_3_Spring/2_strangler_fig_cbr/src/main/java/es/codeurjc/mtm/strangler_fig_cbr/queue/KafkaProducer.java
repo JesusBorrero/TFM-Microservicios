@@ -9,6 +9,9 @@ import org.springframework.stereotype.Component;
 import org.springframework.util.concurrent.ListenableFuture;
 import org.springframework.util.concurrent.ListenableFutureCallback;
 
+import java.util.concurrent.CompletableFuture;
+import java.util.function.BiConsumer;
+
 @Component
 @RequiredArgsConstructor
 @Slf4j
@@ -31,17 +34,21 @@ public class KafkaProducer {
   }
 
   public void sendMessage(String message, String topic){
-    ListenableFuture<SendResult<String, String>> future = kafkaTemplate
+    CompletableFuture<SendResult<String, String>> future = kafkaTemplate
         .send(topic, message);
-    future.addCallback(new ListenableFutureCallback<>() {
+    future.whenComplete(new BiConsumer<>() {
       @Override
-      public void onSuccess(SendResult<String, String> result) {
-        log.debug("Message {} has been sent ", message);
+      public void accept(SendResult<String, String> stringStringSendResult, Throwable throwable) {
+        if (throwable != null) {
+          log.error("Something went wrong with the message {} ", message);
+        } else {
+          log.debug("Message {} has been sent ", message);
+        }
       }
 
       @Override
-      public void onFailure(Throwable ex) {
-        log.error("Something went wrong with the message {} ", message);
+      public BiConsumer<SendResult<String, String>, Throwable> andThen(BiConsumer<? super SendResult<String, String>, ? super Throwable> after) {
+        return BiConsumer.super.andThen(after);
       }
     });
   }
